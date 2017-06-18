@@ -19,7 +19,11 @@ from django.contrib import admin
 import rest_framework
 from rest_framework.authtoken.views import obtain_auth_token
 
+from board.urls import router
+
+
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^api/token/', obtain_auth_token, name='api_token'),
+    url(r'^api/', include(router.urls)),
 ]
