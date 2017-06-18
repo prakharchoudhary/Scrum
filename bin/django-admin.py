@@ -1,4 +1,4 @@
-#!/home/pc/scrum/bin/python2
+#!/home/pc/scrum/bin/python3
 from django.core import management
 
 if __name__ == "__main__":
