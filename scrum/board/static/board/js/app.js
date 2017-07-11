@@ -8,5 +8,5 @@ var app = (function ($) {
 		var router = new app.router();
 	});
 
-	return app
+	return app;
 })(jQuery);

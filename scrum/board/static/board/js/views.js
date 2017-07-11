@@ -17,4 +17,4 @@
 	});
 
 	apps.views.HomepageView = HomepageView; 
-})(jQuery, Backbone, _, app);
+})(jQuery, Backbone, _, app);	
