@@ -58,9 +58,52 @@
 	var LoginView = TemplateView.extend({
 		id: 'login',
 		templateName: '#login-template'
-	});
+		events: {
+			'submit form': 'submit'
+		},
+		submit: function (event) {
+			var data = {};
+			event.preventDefault();
+			this.form = $(event.currentTarget);
+			data = {
+				username: $(':input[name="username"]', this.form).val(),
+				password: $(':input[name="password"]', this.form).val()
+			};
+			// TODO: Submit the login form
+			$.post(app.apiLogin, data)
+				.success($.proxy(this.loginSuccess, this))
+				.fail($.proxy(this.loginFailure, this));
+		}
+		loginSuccess: function (data) {
+			app.session.save(data.token);
+			this.trigger('login', data.token);
+		},
+
+		loginFailure: function (xhr, status, error) {
+			var errors = xhr.responseJSON;
+			this.showErrors(errors);
+		},
 		
+		showErrors: function (errors) {
+			// TODO: Show the errors from the response
+			_.map(errors, function (fieldErrors, name) {
+				var field = $(':input[name=' + name + ']', this.form),
+					label = $('label[for=' + field.attr('id') + ']', this.form);
+				if (label.length === 0) {
+					label = $('label', this.form).first();
+				}
+				function appendError(msg) {
+					label.before(this.errorTemplate({msg: msg}));
+				}
+				_.map(fieldErrors, appendError, this);
+			}, this);
+		},
+		clearErrors: function () {
+			$('.error', this.form).remove();
+		}
+	});
+
 	app.views.HomepageView = HomepageView;
 	app.views.LoginView = LoginView;
- 
+
 })(jQuery, Backbone, _, app);	
