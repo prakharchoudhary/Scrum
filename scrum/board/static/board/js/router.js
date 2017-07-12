@@ -25,7 +25,8 @@
 			this.current = view;
 			this.current.render();
 		}
-
-		app.router = AppRouter;
 	});
+	
+	app.router = AppRouter;
+
 })(jQuery, Backbone, _, app);
