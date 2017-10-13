@@ -1,5 +1,7 @@
-Django
-djangorestframework
-django-filter
-markdown
-drfdocs
+Django==1.11.6
+django-filter==1.0.4
+djangorestframework==3.7.0
+drfdocs==0.0.11
+flake8==3.4.1
+Markdown==2.6.9
+pytz==2017.2

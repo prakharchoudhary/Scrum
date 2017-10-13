@@ -1,3 +1,4 @@
+# flake8: noqa
 """
 Django settings for scrum project.
 
@@ -37,12 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #Third  party apps
+    # Third  party apps
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
     "rest_framework_docs",
-    #Internal apps
+    # Internal apps
     "board",
 ]
 
