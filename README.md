@@ -15,3 +15,7 @@ $ pip install requirements.txt
 $ python manage.py migrate
 $ python manage.py runserver
 ```
+
+## Testing
+
+To test codebase using Flake8, run `flake8 --exclude=migrations scrum`
