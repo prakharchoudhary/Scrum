@@ -10,7 +10,20 @@
         <link rel="stylesheet" href="{% static 'board/vendor/normalize.css' %}">
         <link rel="stylesheet" href="{% static 'board/css/board.css' %}">
         <script type="text/html" id="home-template">
-            <h1>Welcome to my Scrum Board Project!</h1>
+            <h2>Your Sprints</h2>
+            <button class="add" type="submit">Add Sprint</button>
+            <% if (sprints !== null) { %>
+                <div class="sprints">
+                    <% _.each(sprints.models, function (sprint) { %>
+                        <a href="#sprint/<%- sprint.get('id') %>" class="sprint">
+                            <%- sprint.get('name') %> <br>
+                            <span>DUE BY <%- sprint.get('end') %></span>
+                        </a>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <h3 class="loading">Loading...</h3>
+            <% } %>
         </script>
         <script type="text/html" id="login-template">
             <form action="" method="post">
@@ -22,13 +35,83 @@
             </form>
         </script>
         <script type="text/html" id="header-template">
-            <span class="title">Scrum Board</span>
+            <span class="title">Scrum Board Example</span>
             <% if (authenticated ) { %>
                 <nav>
                     <a href="/" class="button">Your Sprints</a>
                     <a href="#" class="logout button">Logout</a>
                 </nav>
             <% } %>
+        </script>
+        <script type="text/html" id="new-sprint-template">
+            <form action="" method="post">
+                <label for="id_name">Sprint Name</label>
+                <input id="id_name" type="text" name="name" maxlength="100" required />
+                <label for="id_end">End Date</label>
+                <input id="id_end" type="date" name="end" />
+                <label for="id_description">Description</label>
+                <textarea id="id_description" name="description" cols="50"></textarea>
+                <button class="cancel">Cancel</button>
+                <button type="submit">Create</button>
+            </form>
+        </script>
+        <script type="text/html" id="sprint-template">
+            <% if (sprint !== null) { %>
+                <% if (!sprint.invalid) { %>
+                    <h2><%- sprint.get('name') %></h2>
+                    <span class="due-date">Due <%- sprint.get('end') %></span>
+                    <p class="description"><%- sprint.get('description') %></p>
+                    <div class="tasks"></div>
+                <% } else { %>
+                    <h1>Sprint <%- sprint.get('id') %> not found.</h1>
+                <% } %>
+            <% } else { %>
+                <h1 class="loading">Loading...</h1>
+            <% } %>
+        </script>
+        <script type="text/html" id="status-template">
+            <h4><%- title %></h4>
+            <div class="list"></div>
+            <% if (sprint === null) { %>
+                <button class="add" type="submit">Add Task</button>
+            <% } %>
+        </script>
+        <script type="text/html" id="new-task-template">
+          <form class="add-task" action="" method="post">
+              <label for="id_name">Task Name</label>
+              <input id="id_name" type="text" name="name" maxlength="100" required />
+              <label for="id_description">Description</label>
+              <textarea id="id_description" name="description"></textarea>
+              <button class="create" type="submit">Create</button>
+              <button class="cancel" type="submit">Cancel</button>
+          </form>
+        </script>
+        <script type="text/html" id="task-item-template">
+            <%- task.get('name') %>
+        </script>
+        <script type="text/html" id="task-detail-template">
+            <div data-field="name" class="name" contenteditable="true">
+                <%- task.get('name') %>
+            </div>
+            <div data-field="description" class="description" contenteditable="true">
+                <%- task.get('description') %>
+            </div>
+            <div class="with-label">
+                <div class="label">Due:</div>
+                <div data-field="due" class="due date" contenteditable="true">
+                    <%- task.get('due') || empty %>
+                </div>
+            </div>
+            <div class="with-label">
+                <div class="label">Assigned To:</div>
+                <div data-field="assigned" class="assigned" contenteditable="true">
+                    <%- task.get('assigned') || empty %>
+                </div>
+            </div>
+            <form>
+                <button class="cancel" type="submit">Close</button>
+                <button class="save hide" type="submit">Save</button>
+            </form>
         </script>
     </head>
     <body>
