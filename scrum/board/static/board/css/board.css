@@ -99,6 +99,7 @@ header nav a:hover {
 
 /* Sprint Listing
 ==================== */
+
 .sprints {
     margin-top: 25px;
 }
@@ -112,7 +113,7 @@ header nav a:hover {
     color: #FFF;
 }
 
-.sprints a.sprint span {
+.sprints a.sprint span { 
     font-size: 10px;
 }
 
@@ -121,18 +122,19 @@ header nav a:hover {
     padding: 20px;
 }
 
-
 /* Tasks
 ==================== */
+
 .tasks {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+
     -webkit-flex-flow: row wrap;
+
     align-items: strech;
-    overflow: scroll;
 }
 
 .tasks .status {
@@ -142,16 +144,19 @@ header nav a:hover {
     margin-right: 8px;
     width: 17%;
 }
+
 .tasks .status .list {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+
     -webkit-flex-flow: row wrap;
     flex-direction: row;
     justify-content: space-around;
 }
+
 .task-detail input, .task-detail textarea {
     width: 90%;
 }
@@ -161,7 +166,6 @@ header nav a:hover {
     margin: 5px 0;
     padding: 3px;
 }
-
 
 /* Task Detail
 ==================== */
