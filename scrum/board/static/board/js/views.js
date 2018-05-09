@@ -38,10 +38,16 @@
             }, this);
         },
         serializeForm: function (form) {
-            return _.object(_.map(form.serializeArray(), function (item) {
+            console.log(form);
+            var x = _.map(form.serializeArray(), function (item) {
                 // Convert object to tuple of (name, value)
+                console.log([item.name, item.value]);
                 return [item.name, item.value];
-            }));
+            })
+            var sprintUrl = window.location.href.split('/')
+            x.push(["sprint", sprintUrl[sprintUrl.length - 1]])
+            console.log('x', _.object(x))
+            return _.object(x);
         },
         submit: function (event) {
             event.preventDefault();
