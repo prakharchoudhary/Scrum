@@ -91,7 +91,11 @@
         fetchTasks: function () {
             var links = this.get('links');
             if (links && links.tasks) {
-                app.tasks.fetch({url: links.tasks, remove: false});
+                app.tasks.fetch({url: links.tasks, remove: false, 
+                    success: function(collection, response, options) { 
+                        collection.add(response); 
+                    }
+                });
             }
         }
     });

@@ -99,9 +99,14 @@
                 var end = new Date();
                 end.setDate(end.getDate() - 7);
                 end = end.toISOString().replace(/T.*/g, '');
-                app.sprints.fetch({
-                    data: {end_min: end},
-                    success: $.proxy(self.render, self)
+                // app.sprints.fetch({
+                //     data: {end_min: end},
+                //     success: $.proxy(self.render, self)
+                // });
+                app.sprints.fetch({ data: {end_min: end}, 
+                    success: function(collection, response, options) { 
+                        collection.add(response); self.render(); 
+                    }
                 });
             });
         },
@@ -156,6 +161,9 @@
 
     var AddTaskView = FormView.extend({
         templateName: '#new-task-template',
+        events: _.extend({
+            'click button.cancel': 'done'
+        }, FormView.prototype.events),
         submit: function (event) {
             var self = this,
                 attributes = {};
